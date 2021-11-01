@@ -20,7 +20,7 @@ public class Main {
         ArrayList<Product> products = new ArrayList<>();
         productCreator(products, new File("src/com/data/Products.txt"));
         for (Product product : products) {
-            System.out.println(product.getRating());
+            System.out.println(product.getPrice());
         }
     }
 
@@ -28,7 +28,12 @@ public class Main {
         return startIndex <= index && endIndex >= index;
 
     }
+    private static void userCreator(){
 
+    }
+    private static void userSessionCreator(){
+
+    }
     private static void productCreator(List<Product> products, File csvFile) {
         try {
             Scanner csvScanner = new Scanner(csvFile);
