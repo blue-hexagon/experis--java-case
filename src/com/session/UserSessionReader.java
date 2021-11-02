@@ -29,14 +29,14 @@ public class UserSessionReader {
                     String fieldData = csvFieldArray[iterValue].strip();
                     if (fieldData.length() > 0) {
                         if (MathHelper.isBetween(iterValue, UserSessionFieldSpanRecord.USER_ID.fieldStartPosition(), UserSessionFieldSpanRecord.USER_ID.fieldEndPosition())) {
-                            userSession.setUserId(UserReader
+                            userSession.setUser(UserReader
                                     .getUserList().stream()
                                     .filter(user -> Integer.parseInt(fieldData) == (user.getId()))
                                     .findAny()
                                     .orElse(null)
                             );
                         } else if (MathHelper.isBetween(iterValue, UserSessionFieldSpanRecord.PRODUCT_ID.fieldStartPosition(), UserSessionFieldSpanRecord.PRODUCT_ID.fieldEndPosition())) {
-                            userSession.setProductId(ProductReader
+                            userSession.setProduct(ProductReader
                                     .getProductList().stream()
                                     .filter(product -> Integer.parseInt(fieldData) == (product.getId()))
                                     .findAny()

@@ -2,6 +2,7 @@ package com.user;
 
 import com.product.Product;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 public class User {
@@ -12,12 +13,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", viewedProducts=" + viewedProducts +
-                ", purchasedProducts=" + purchasedProducts +
-                '}';
+        return MessageFormat.format("User'{'id={0}, name={1}, viewedProducts={2}, purchasedProducts={3}'}'", id, name, viewedProducts, purchasedProducts);
     }
 
     public User() {

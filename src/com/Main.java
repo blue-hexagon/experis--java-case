@@ -2,12 +2,11 @@ package com;
 
 import com.product.Product;
 import com.product.ProductReader;
+import com.recommender.ProductSuggester;
 import com.session.UserSession;
 import com.session.UserSessionReader;
 import com.user.User;
 import com.user.UserReader;
-
-import java.util.ArrayList;
 
 public class Main {
     private static final boolean DEBUG = false;
@@ -22,25 +21,10 @@ public class Main {
             DumpDataObjects();
         }
 
-        for (UserSession userSession : UserSessionReader.getSessionList()) {
-            ArrayList<Product> viewedProducts = userSession.getUserId().getViewedProducts();
-            ArrayList<Product> purchasedProducts = userSession.getUserId().getPurchasedProducts();
-            int lowestYear = Integer.MAX_VALUE;
-            float lowestRating = Integer.MAX_VALUE;
-            for (Product product : viewedProducts) {
-                if (product.getReleaseYear() < lowestYear)
-                    lowestYear = product.getReleaseYear();
-                if (product.getRating() < lowestRating)
-                    lowestRating = product.getRating();
-            }
-            for (Product product : purchasedProducts) {
-                if (product.getReleaseYear() < lowestYear)
-                    lowestYear = product.getReleaseYear();
-                if (product.getRating() < lowestRating)
-                    lowestRating = product.getRating();
-            }
-            System.out.println(lowestYear);
-            System.out.println(lowestRating);
+        for(UserSession session : UserSessionReader.getSessionList()){
+            ProductSuggester.getSuggestion(session);
+            System.out.println(session.toString());
+
         }
 
     }

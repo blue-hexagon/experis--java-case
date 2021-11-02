@@ -1,5 +1,6 @@
 package com.product;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 public class Product {
@@ -16,14 +17,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", releaseYear=" + releaseYear +
-                ", categories=" + categories +
-                ", rating=" + rating +
-                ", price=" + price +
-                '}';
+        return MessageFormat.format("Product'{'id={0}, title={1}, releaseYear{2}, categories={3}, rating={4}, price={5}'}'", id, title, releaseYear, categories, rating, price);
     }
 
     public int getId() {
