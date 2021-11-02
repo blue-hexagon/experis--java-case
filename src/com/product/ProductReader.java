@@ -11,7 +11,11 @@ public class ProductReader {
     private static final File CSV_FILE = new File("src/com/data/Products.txt");
     private static final ArrayList<Product> productList = new ArrayList<>();
 
-    public ProductReader() {
+    public static ArrayList<Product> getProductList() {
+        return productList;
+    }
+
+    public static void ReadProducts() {
         try {
             Scanner csvScanner = new Scanner(ProductReader.CSV_FILE);
             while (csvScanner.hasNextLine()) {
@@ -43,9 +47,6 @@ public class ProductReader {
         }
     }
 
-    public static ArrayList<Product> getProductList() {
-        return productList;
-    }
 
 }
 

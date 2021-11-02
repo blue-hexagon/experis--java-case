@@ -12,7 +12,11 @@ public class UserReader {
     private static final File CSV_FILE = new File("src/com/data/Users.txt");
     private static final ArrayList<User> userList = new ArrayList<>();
 
-    public UserReader() {
+    public static ArrayList<User> getUserList() {
+        return userList;
+    }
+
+    public static void ReadUsers() {
         try {
             Scanner csvScanner = new Scanner(UserReader.CSV_FILE);
             while (csvScanner.hasNextLine()) {
@@ -27,11 +31,11 @@ public class UserReader {
                             user.setName(fieldData);
                         else if (MathHelper.isBetween(iterValue, SessionFieldSpanRecord.VIEWED.fieldStartPosition(), SessionFieldSpanRecord.VIEWED.fieldEndPosition())) {
                             for (String field : fieldData.split("[;]")) {
-                                user.getViewedProducts().add(ProductReader.getProductList().get(Integer.parseInt(field)-1));
+                                user.getViewedProducts().add(ProductReader.getProductList().get(Integer.parseInt(field) - 1));
                             }
                         } else if (MathHelper.isBetween(iterValue, SessionFieldSpanRecord.PURCHASED.fieldStartPosition(), SessionFieldSpanRecord.PURCHASED.fieldEndPosition())) {
                             for (String field : fieldData.split("[;]")) {
-                                user.getPurchasedProducts().add(ProductReader.getProductList().get(Integer.parseInt(field)-1));
+                                user.getPurchasedProducts().add(ProductReader.getProductList().get(Integer.parseInt(field) - 1));
                             }
                         }
                     }
@@ -45,8 +49,5 @@ public class UserReader {
         }
     }
 
-    public static ArrayList<User> getUserList() {
-        return userList;
-    }
 
 }
