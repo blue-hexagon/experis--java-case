@@ -1,32 +1,18 @@
-package com.model;
+package com.model.product;
 
 import java.util.ArrayList;
-import java.util.List;
-
-
 
 public class Product {
-    int id;
-    String title;
-    int releaseYear;
-    ArrayList<String> categories;
-    float rating;
-    int price;
+    private int id;
+    private String title;
+    private int releaseYear;
+    private ArrayList<String> categories;
+    private float rating;
+    private int price;
 
     public Product() {
 
     }
-
-    public Product(int id, String title, int releaseYear, ArrayList<String> categories, float rating, int price) {
-        this.id = id;
-        this.title = title;
-        this.releaseYear = releaseYear;
-        this.categories = categories;
-        this.rating = rating;
-        this.price = price;
-
-    }
-
     public int getId() {
         return id;
     }
@@ -75,4 +61,3 @@ public class Product {
         this.price = price;
     }
 }
-
