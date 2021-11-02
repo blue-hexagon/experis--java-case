@@ -1,5 +1,6 @@
 package com.user;
 
+import com.AlreadyInitializedException;
 import com.MathHelper;
 import com.product.ProductReader;
 
@@ -16,33 +17,37 @@ public class UserReader {
         return userList;
     }
 
-    public static void ReadUsers() {
+    public static void ReadUsers() throws AlreadyInitializedException {
         try {
-            Scanner csvScanner = new Scanner(UserReader.CSV_FILE);
-            while (csvScanner.hasNextLine()) {
-                User user = new User();
-                String[] csvFieldArray = csvScanner.nextLine().split("[,]");
-                for (int iterValue = SessionFieldSpanRecord.RANGE.fieldStartPosition(); iterValue < SessionFieldSpanRecord.RANGE.fieldEndPosition(); iterValue++) {
-                    String fieldData = csvFieldArray[iterValue].strip();
-                    if (fieldData.length() > 0) {
-                        if (MathHelper.isBetween(iterValue, SessionFieldSpanRecord.ID.fieldStartPosition(), SessionFieldSpanRecord.ID.fieldEndPosition()))
-                            user.setId(Integer.parseInt(fieldData));
-                        else if (MathHelper.isBetween(iterValue, SessionFieldSpanRecord.NAME.fieldStartPosition(), SessionFieldSpanRecord.NAME.fieldEndPosition()))
-                            user.setName(fieldData);
-                        else if (MathHelper.isBetween(iterValue, SessionFieldSpanRecord.VIEWED.fieldStartPosition(), SessionFieldSpanRecord.VIEWED.fieldEndPosition())) {
-                            for (String field : fieldData.split("[;]")) {
-                                user.getViewedProducts().add(ProductReader.getProductList().get(Integer.parseInt(field) - 1));
-                            }
-                        } else if (MathHelper.isBetween(iterValue, SessionFieldSpanRecord.PURCHASED.fieldStartPosition(), SessionFieldSpanRecord.PURCHASED.fieldEndPosition())) {
-                            for (String field : fieldData.split("[;]")) {
-                                user.getPurchasedProducts().add(ProductReader.getProductList().get(Integer.parseInt(field) - 1));
+            if (userList.size() == 0) {
+                Scanner csvScanner = new Scanner(UserReader.CSV_FILE);
+                while (csvScanner.hasNextLine()) {
+                    User user = new User();
+                    String[] csvFieldArray = csvScanner.nextLine().split("[,]");
+                    for (int iterValue = SessionFieldSpanRecord.RANGE.fieldStartPosition(); iterValue < SessionFieldSpanRecord.RANGE.fieldEndPosition(); iterValue++) {
+                        String fieldData = csvFieldArray[iterValue].strip();
+                        if (fieldData.length() > 0) {
+                            if (MathHelper.isBetween(iterValue, SessionFieldSpanRecord.ID.fieldStartPosition(), SessionFieldSpanRecord.ID.fieldEndPosition()))
+                                user.setId(Integer.parseInt(fieldData));
+                            else if (MathHelper.isBetween(iterValue, SessionFieldSpanRecord.NAME.fieldStartPosition(), SessionFieldSpanRecord.NAME.fieldEndPosition()))
+                                user.setName(fieldData);
+                            else if (MathHelper.isBetween(iterValue, SessionFieldSpanRecord.VIEWED.fieldStartPosition(), SessionFieldSpanRecord.VIEWED.fieldEndPosition())) {
+                                for (String field : fieldData.split("[;]")) {
+                                    user.getViewedProducts().add(ProductReader.getProductList().get(Integer.parseInt(field) - 1));
+                                }
+                            } else if (MathHelper.isBetween(iterValue, SessionFieldSpanRecord.PURCHASED.fieldStartPosition(), SessionFieldSpanRecord.PURCHASED.fieldEndPosition())) {
+                                for (String field : fieldData.split("[;]")) {
+                                    user.getPurchasedProducts().add(ProductReader.getProductList().get(Integer.parseInt(field) - 1));
+                                }
                             }
                         }
                     }
+                    getUserList().add(user);
                 }
-                getUserList().add(user);
+                csvScanner.close();
+            } else {
+                throw new AlreadyInitializedException("User list already initialized.");
             }
-            csvScanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found.");
             e.printStackTrace();

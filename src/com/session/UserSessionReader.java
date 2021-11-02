@@ -1,5 +1,6 @@
 package com.session;
 
+import com.AlreadyInitializedException;
 import com.MathHelper;
 import com.product.ProductReader;
 import com.user.UserReader;
@@ -11,14 +12,15 @@ import java.util.Scanner;
 
 public class UserSessionReader {
     private static final File CSV_FILE = new File("src/com/data/CurrentUserSession.txt");
-    private static final ArrayList<UserSession> USER_SESSION_LIST = new ArrayList<>();
+    private static ArrayList<UserSession> userSessionList = new ArrayList<>();
 
     public static ArrayList<UserSession> getSessionList() {
-        return USER_SESSION_LIST;
+        return userSessionList;
     }
 
-    public static void ReadSessions() {
+    public static void ReadSessions() throws AlreadyInitializedException {
         try {
+            if (userSessionList.size() == 0) {
             Scanner csvScanner = new Scanner(CSV_FILE);
             while (csvScanner.hasNextLine()) {
                 UserSession userSession = new UserSession();
@@ -43,9 +45,13 @@ public class UserSessionReader {
                         }
                     }
                 }
-                USER_SESSION_LIST.add(userSession);
+                userSessionList.add(userSession);
             }
             csvScanner.close();
+            }
+            else{
+                throw new AlreadyInitializedException("User session list already initialized.");
+            }
         } catch (FileNotFoundException e) {
             System.out.println("File not found.");
             e.printStackTrace();
