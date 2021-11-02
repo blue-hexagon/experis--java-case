@@ -6,13 +6,26 @@ public class Product {
     private int id;
     private String title;
     private int releaseYear;
-    private ArrayList<String> categories;
+    private final ArrayList<String> categories;
     private float rating;
     private int price;
 
     public Product() {
-
+        categories = new ArrayList<>();
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", releaseYear=" + releaseYear +
+                ", categories=" + categories +
+                ", rating=" + rating +
+                ", price=" + price +
+                '}';
+    }
+
     public int getId() {
         return id;
     }
@@ -38,11 +51,7 @@ public class Product {
     }
 
     public ArrayList<String> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(ArrayList<String> categories) {
-        this.categories = categories;
+        return this.categories;
     }
 
     public float getRating() {
