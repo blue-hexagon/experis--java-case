@@ -3,10 +3,13 @@ package com;
 import com.product.Product;
 import com.product.ProductReader;
 import com.recommender.ProductSuggester;
+import com.recommender.SubsetFinder;
 import com.session.UserSession;
 import com.session.UserSessionReader;
 import com.user.User;
 import com.user.UserReader;
+
+import java.util.ArrayList;
 
 public class Main {
     private static final boolean DEBUG = false;
@@ -21,12 +24,13 @@ public class Main {
             DumpDataObjects();
         }
 
-        for(UserSession session : UserSessionReader.getSessionList()){
+        for (UserSession session : UserSessionReader.getSessionList()) {
             ProductSuggester.getSuggestion(session);
             System.out.println(session.toString());
 
         }
-
+        ArrayList<Integer> hotPurchases = SubsetFinder.FindUserPurchasesUnionSet(UserReader.getUserList());
+//        hotPurchases.reduce
     }
 
     private static void DumpDataObjects() {
