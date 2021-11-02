@@ -1,4 +1,4 @@
-package com.experis;
+package com;
 
 public class MathHelper {
     public static boolean isBetween(int index, int startIndex, int endIndex) {

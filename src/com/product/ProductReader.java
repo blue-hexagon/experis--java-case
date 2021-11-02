@@ -1,25 +1,17 @@
-package com.model.product;
+package com.product;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.experis.MathHelper;
+import com.MathHelper;
 
 public class ProductReader {
     private static final File CSV_FILE = new File("src/com/data/Products.txt");
     private static final ArrayList<Product> productList = new ArrayList<>();
 
     public ProductReader() {
-        createProductList();
-    }
-
-    public static ArrayList<Product> getProductList() {
-        return productList;
-    }
-
-    public void createProductList() {
         try {
             Scanner csvScanner = new Scanner(ProductReader.CSV_FILE);
             while (csvScanner.hasNextLine()) {
@@ -42,7 +34,7 @@ public class ProductReader {
                             product.setPrice(Integer.parseInt(fieldData));
                     }
                 }
-                this.getProductList().add(product);
+                getProductList().add(product);
             }
             csvScanner.close();
         } catch (FileNotFoundException e) {
@@ -50,5 +42,10 @@ public class ProductReader {
             e.printStackTrace();
         }
     }
+
+    public static ArrayList<Product> getProductList() {
+        return productList;
+    }
+
 }
 

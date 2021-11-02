@@ -1,6 +1,6 @@
-package com.model.user;
+package com.user;
 
-import com.model.product.Product;
+import com.product.Product;
 
 import java.util.ArrayList;
 
