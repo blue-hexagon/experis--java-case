@@ -6,6 +6,8 @@ import com.recommender.SubsetFinder;
 import com.session.UserSession;
 import com.user.User;
 
+import java.util.ArrayList;
+
 
 public class Main {
     private static final boolean DEBUG = false;
@@ -20,13 +22,7 @@ public class Main {
             DumpDataObjects();
         }
 
-        for (UserSession session : CSVReader.getUserSessionList()) {
-            ProductSuggester.getSuggestion(session);
-            System.out.println(session.toString());
-
-        }
-//        ArrayList<Integer> hotPurchases = SubsetFinder.FindUserPurchasesUnionSet(UserReader.getUserList());
-//        hotPurchases.reduce
+        ArrayList<Integer> hotPurchases = SubsetFinder.FindUserPurchasesUnionSet(CSVReader.getUserList());
     }
 
     private static void DumpDataObjects() {

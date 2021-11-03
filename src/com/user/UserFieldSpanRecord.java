@@ -5,7 +5,7 @@ public enum UserFieldSpanRecord {
     NAME(1, 1),
     VIEWED(2, 2),
     PURCHASED(3, 3),
-    RANGE(0, 3 + 1); // Used for bounding the for-loop, hence the +1.
+    RANGE(0, 3);
 
     private final int fieldStartPosition;
     private final int fieldEndPosition;

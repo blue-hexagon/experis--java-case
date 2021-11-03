@@ -7,7 +7,7 @@ public enum ProductFieldSpanRecord {
     CATEGORIES(3, 7),
     RATING(8, 8),
     PRICE(9, 9),
-    RANGE(0, 9 + 1); // Used for bounding the for-loop, hence the +1.
+    RANGE(0, 9);
 
     private final int fieldStartPosition;
     private final int fieldEndPosition;

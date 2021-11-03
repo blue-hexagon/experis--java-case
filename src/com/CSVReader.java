@@ -78,7 +78,7 @@ public class CSVReader {
         while (csvScanner.hasNextLine()) {
             UserSession userSession = new UserSession();
             String[] csvFieldArray = csvScanner.nextLine().split("[,]");
-            for (int iterValue = UserSessionFieldSpanRecord.RANGE.fieldStartPosition(); iterValue < UserSessionFieldSpanRecord.RANGE.fieldEndPosition(); iterValue++) {
+            for (int iterValue = UserSessionFieldSpanRecord.RANGE.fieldStartPosition(); iterValue <= UserSessionFieldSpanRecord.RANGE.fieldEndPosition(); iterValue++) {
                 String fieldData = csvFieldArray[iterValue].strip();
                 if (fieldData.length() > 0) {
                     if (MathHelper.isBetween(iterValue, UserSessionFieldSpanRecord.USER_ID.fieldStartPosition(), UserSessionFieldSpanRecord.USER_ID.fieldEndPosition())) {
@@ -105,7 +105,7 @@ public class CSVReader {
     private static void ReadProducts(Scanner csvScanner) {
         Product product = new Product();
         String[] csvFieldArray = csvScanner.nextLine().split("[,]");
-        for (int iterValue = ProductFieldSpanRecord.RANGE.fieldStartPosition(); iterValue < ProductFieldSpanRecord.RANGE.fieldEndPosition(); iterValue++) {
+        for (int iterValue = ProductFieldSpanRecord.RANGE.fieldStartPosition(); iterValue <= ProductFieldSpanRecord.RANGE.fieldEndPosition(); iterValue++) {
             String fieldData = csvFieldArray[iterValue].strip();
             if (fieldData.length() > 0) {
                 if (MathHelper.isBetween(iterValue, ProductFieldSpanRecord.ID.fieldStartPosition(), ProductFieldSpanRecord.ID.fieldEndPosition()))
@@ -129,7 +129,7 @@ public class CSVReader {
     private static void ReadUsers(Scanner csvScanner) {
         User user = new User();
         String[] csvFieldArray = csvScanner.nextLine().split("[,]");
-        for (int iterValue = UserFieldSpanRecord.RANGE.fieldStartPosition(); iterValue < UserFieldSpanRecord.RANGE.fieldEndPosition(); iterValue++) {
+        for (int iterValue = UserFieldSpanRecord.RANGE.fieldStartPosition(); iterValue <= UserFieldSpanRecord.RANGE.fieldEndPosition(); iterValue++) {
             String fieldData = csvFieldArray[iterValue].strip();
             if (fieldData.length() > 0) {
                 if (MathHelper.isBetween(iterValue, UserFieldSpanRecord.ID.fieldStartPosition(), UserFieldSpanRecord.ID.fieldEndPosition()))

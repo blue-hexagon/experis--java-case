@@ -6,12 +6,17 @@ import com.product.Product;
 import com.user.User;
 
 public class UserSession {
-    User user;
-    Product product;
-
+    private User user;
+    private Product product;
     public User getUser() {
         return user;
     }
+    @Override
+    public String toString() {
+        return MessageFormat.format("Session'{'userId={0}, productId={1}'}'", user, product);
+    }
+
+
 
     public void setUser(User user) {
         this.user = user;
@@ -29,8 +34,4 @@ public class UserSession {
 
     }
 
-    @Override
-    public String toString() {
-        return MessageFormat.format("Session'{'userId={0}, productId={1}'}'", user, product);
-    }
 }

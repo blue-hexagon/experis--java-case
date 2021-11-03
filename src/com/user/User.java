@@ -11,14 +11,15 @@ public class User {
     private ArrayList<Product> viewedProducts;
     private ArrayList<Product> purchasedProducts;
 
-    @Override
-    public String toString() {
-        return MessageFormat.format("User'{'id={0}, name={1}, viewedProducts={2}, purchasedProducts={3}'}'", id, name, viewedProducts, purchasedProducts);
-    }
 
     public User() {
         viewedProducts = new ArrayList<>();
         purchasedProducts = new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return MessageFormat.format("User'{'id={0}, name={1}, viewedProducts={2}, purchasedProducts={3}'}'", id, name, viewedProducts, purchasedProducts);
     }
 
     public int getId() {
