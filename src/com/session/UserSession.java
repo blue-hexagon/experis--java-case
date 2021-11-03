@@ -2,7 +2,6 @@ package com.session;
 
 import java.text.MessageFormat;
 
-import com.IReadable;
 import com.product.Product;
 import com.user.User;
 

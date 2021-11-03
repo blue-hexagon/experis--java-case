@@ -17,7 +17,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return MessageFormat.format("Product'{'id={0}, title={1}, releaseYear{2}, categories={3}, rating={4}, price={5}'}'", id, title, releaseYear, categories, rating, price);
+        return MessageFormat.format("Product'{'id={0}, title={1}, releaseYear={2}, categories={3}, rating={4}, price={5}'}'", id, title, releaseYear, categories, rating, price);
     }
 
     public int getId() {
