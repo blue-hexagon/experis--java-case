@@ -41,32 +41,32 @@ public class CSVReader {
 
     public static void ReadObjects() throws AlreadyInitializedException {
         try {
-            if (productList.size() == 0) {
+            if (productList.isEmpty()) {
                 Scanner csvScanner = new Scanner(CSV_FILE_PRODUCTS);
                 while (csvScanner.hasNextLine()) {
                     ReadProducts(csvScanner);
                 }
                 csvScanner.close();
             } else {
-                throw new AlreadyInitializedException("List already initialized.");
+                throw new AlreadyInitializedException("Productlist already initialized.");
             }
-            if (userList.size() == 0) {
+            if (userList.isEmpty()) {
                 Scanner csvScanner = new Scanner(CSV_FILE_USERS);
                 while (csvScanner.hasNextLine()) {
                     ReadUsers(csvScanner);
                 }
                 csvScanner.close();
             } else {
-                throw new AlreadyInitializedException("List already initialized.");
+                throw new AlreadyInitializedException("Userlist already initialized.");
             }
-            if (userSessionList.size() == 0) {
+            if (userSessionList.isEmpty()) {
                 Scanner csvScanner = new Scanner(CSV_FILE_USER_SESSIONS);
                 while (csvScanner.hasNextLine()) {
                     ReadUserSessions(csvScanner);
                 }
                 csvScanner.close();
             } else {
-                throw new AlreadyInitializedException("List already initialized.");
+                throw new AlreadyInitializedException("Usersession list already initialized.");
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found.");

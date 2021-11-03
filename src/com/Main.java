@@ -1,12 +1,9 @@
 package com;
 
 import com.product.Product;
-import com.recommender.ProductSuggester;
-import com.recommender.SubsetFinder;
+import com.recommender.HotProductFinder;
 import com.session.UserSession;
 import com.user.User;
-
-import java.util.ArrayList;
 
 
 public class Main {
@@ -22,7 +19,7 @@ public class Main {
             DumpDataObjects();
         }
 
-        ArrayList<Integer> hotPurchases = SubsetFinder.FindUserPurchasesUnionSet(CSVReader.getUserList());
+        HotProductFinder.GenerateOftenBoughtProductsList(CSVReader.getUserList());
     }
 
     private static void DumpDataObjects() {
