@@ -1,5 +1,8 @@
 package com.session;
+
 import java.text.MessageFormat;
+
+import com.IReadable;
 import com.product.Product;
 import com.user.User;
 
@@ -29,6 +32,6 @@ public class UserSession {
 
     @Override
     public String toString() {
-        return MessageFormat.format("Session'{'userId={0}, productId={1}'}'",user.getId(),product.getId());
+        return MessageFormat.format("Session'{'userId={0}, productId={1}'}'", user, product);
     }
 }
