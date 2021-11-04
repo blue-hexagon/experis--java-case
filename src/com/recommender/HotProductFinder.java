@@ -16,7 +16,7 @@ public class HotProductFinder {
      *
      * @return Map<K, V>
      */
-    public static Map<Integer, Integer> GenerateOftenBoughtProductsList(ArrayList<User> users) {
+    public static Map<Integer, Integer> GenerateOftenBoughtProductsList(ArrayList<User> users, int pageSize) {
         Map<Integer, Integer> moviePurchaseMap = new HashMap<Integer, Integer>();
         for (User user : users) {
             for (Product product : user.getPurchasedProducts()) {
@@ -38,7 +38,7 @@ public class HotProductFinder {
             else
                 return comp;
         };
-        Map<K, V> sorted = new TreeMap<K, V>(valueComparator);
+        Map<K, V> sorted = new TreeMap<K, V>(valueComparator).descendingMap();
         sorted.putAll(map);
         return sorted;
     }

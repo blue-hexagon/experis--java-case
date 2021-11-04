@@ -19,7 +19,7 @@ public class Main {
             DumpDataObjects();
         }
 
-        HotProductFinder.GenerateOftenBoughtProductsList(CSVReader.getUserList());
+        System.out.println(HotProductFinder.GenerateOftenBoughtProductsList(CSVReader.getUserList(),3));
     }
 
     private static void DumpDataObjects() {

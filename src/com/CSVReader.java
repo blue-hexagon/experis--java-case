@@ -147,7 +147,7 @@ public class CSVReader {
                 }
             }
         }
-        getUserList().add(user);
+        userList.add(user);
     }
 
 
