@@ -2,6 +2,7 @@ package com;
 
 import com.product.Product;
 import com.product.ProductList;
+import com.recommender.HotProductFinder;
 import com.session.UserSession;
 import com.session.UserSessionList;
 import com.user.User;
@@ -11,14 +12,11 @@ import java.io.FileNotFoundException;
 
 
 public class Main {
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
 
     public static void main(String[] args) {
-        IReadable products = new ProductList();
-        IReadable users = new UserList();
-        IReadable userSessions = new UserSessionList();
         try {
-            for (IReadable readable : new IReadable[]{products, users, userSessions}) {
+            for (IReadable readable : new IReadable[]{new ProductList(), new UserList(), new UserSessionList()}) {
                 readable.read();
             }
             if (DEBUG)
@@ -28,7 +26,7 @@ public class Main {
         }
 
 //        System.out.println(ProductList.getProductList());
-//        System.out.println(HotProductFinder.GenerateOftenBoughtProductsList(CSVReader.getUserList(),3));
+        System.out.println(HotProductFinder.GenerateOftenBoughtProductsList(UserList.getUserList(), 3));
     }
 
     private static void DumpDataObjects() {

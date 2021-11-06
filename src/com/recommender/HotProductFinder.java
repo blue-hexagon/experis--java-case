@@ -9,28 +9,26 @@ public class HotProductFinder {
     /**
      * This class has the task of finding the most sold products.
      * <p>
-     * Traverses each users purchases and generates a K,V pair of purchased movies
-     * and how many times the movies has been bought by all users combined.
+     * Traverses each users purchases and generates a K,V pair of purchased movies: K = ProdutID, V = total number of purchases
      * <p>
-     * K = ProdutID, V = number of purchases
      *
      * @return Map<K, V>
      */
     public static Map<Integer, Integer> GenerateOftenBoughtProductsList(ArrayList<User> users, int pageSize) {
-        Map<Integer, Integer> moviePurchaseMap = new HashMap<Integer, Integer>();
+        Map<Integer, Integer> moviesPurchasedMap = new HashMap<Integer, Integer>();
         for (User user : users) {
             for (Product product : user.getPurchasedProducts()) {
-                if (!moviePurchaseMap.containsKey(product.getId())) {
-                    moviePurchaseMap.put(product.getId(), 1);
+                if (!moviesPurchasedMap.containsKey(product.getId())) {
+                    moviesPurchasedMap.put(product.getId(), 1);
                 } else {
-                    moviePurchaseMap.put(product.getId(), moviePurchaseMap.get(product.getId()) + 1);
+                    moviesPurchasedMap.put(product.getId(), moviesPurchasedMap.get(product.getId()) + 1);
                 }
             }
         }
-        return valueSort(moviePurchaseMap);
+        return oftenPurchasedSort(moviesPurchasedMap);
     }
 
-    public static <K, V extends Comparable<V>> Map<K, V> valueSort(final Map<K, V> map) {
+    public static <K, V extends Comparable<V>> Map<K, V> oftenPurchasedSort(final Map<K, V> map) {
         Comparator<K> valueComparator = (k1, k2) -> {
             int comp = map.get(k1).compareTo(map.get(k2));
             if (comp == 0)

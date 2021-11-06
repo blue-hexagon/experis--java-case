@@ -1,6 +1,5 @@
 package com.product;
 
-import com.AlreadyInitializedException;
 import com.IReadable;
 
 import java.io.File;
@@ -28,20 +27,20 @@ public class ProductList implements IReadable {
         while (csvScanner.hasNextLine()) {
             Product product = new Product();
             String[] csvFieldArray = csvScanner.nextLine().split("[,]");
-            for (int iterValue = ProductFieldSpanRecord.RANGE.fieldStartPosition(); iterValue <= ProductFieldSpanRecord.RANGE.fieldEndPosition(); iterValue++) {
-                String fieldData = csvFieldArray[iterValue].strip();
+            for (int fieldPosition = ProductFieldSpanRecord.RANGE.fieldStartPosition(); fieldPosition <= ProductFieldSpanRecord.RANGE.fieldEndPosition(); fieldPosition++) {
+                String fieldData = csvFieldArray[fieldPosition].strip();
                 if (fieldData.length() > 0) {
-                    if (MathUtils.isBetween(iterValue, ProductFieldSpanRecord.ID.fieldStartPosition(), ProductFieldSpanRecord.ID.fieldEndPosition()))
+                    if (MathUtils.isBetween(fieldPosition, ProductFieldSpanRecord.ID.fieldStartPosition(), ProductFieldSpanRecord.ID.fieldEndPosition()))
                         product.setId(Integer.parseInt(fieldData));
-                    else if (MathUtils.isBetween(iterValue, ProductFieldSpanRecord.TITLE.fieldStartPosition(), ProductFieldSpanRecord.TITLE.fieldEndPosition()))
+                    else if (MathUtils.isBetween(fieldPosition, ProductFieldSpanRecord.TITLE.fieldStartPosition(), ProductFieldSpanRecord.TITLE.fieldEndPosition()))
                         product.setTitle(fieldData);
-                    else if (MathUtils.isBetween(iterValue, ProductFieldSpanRecord.RELEASE_YEAR.fieldStartPosition(), ProductFieldSpanRecord.RELEASE_YEAR.fieldEndPosition()))
+                    else if (MathUtils.isBetween(fieldPosition, ProductFieldSpanRecord.RELEASE_YEAR.fieldStartPosition(), ProductFieldSpanRecord.RELEASE_YEAR.fieldEndPosition()))
                         product.setReleaseYear(Integer.parseInt(fieldData));
-                    else if (MathUtils.isBetween(iterValue, ProductFieldSpanRecord.CATEGORIES.fieldStartPosition(), ProductFieldSpanRecord.CATEGORIES.fieldEndPosition()))
+                    else if (MathUtils.isBetween(fieldPosition, ProductFieldSpanRecord.CATEGORIES.fieldStartPosition(), ProductFieldSpanRecord.CATEGORIES.fieldEndPosition()))
                         product.getCategories().add(fieldData);
-                    else if (MathUtils.isBetween(iterValue, ProductFieldSpanRecord.RATING.fieldStartPosition(), ProductFieldSpanRecord.RATING.fieldEndPosition()))
+                    else if (MathUtils.isBetween(fieldPosition, ProductFieldSpanRecord.RATING.fieldStartPosition(), ProductFieldSpanRecord.RATING.fieldEndPosition()))
                         product.setRating(Float.parseFloat(fieldData));
-                    else if (MathUtils.isBetween(iterValue, ProductFieldSpanRecord.PRICE.fieldStartPosition(), ProductFieldSpanRecord.PRICE.fieldEndPosition()))
+                    else if (MathUtils.isBetween(fieldPosition, ProductFieldSpanRecord.PRICE.fieldStartPosition(), ProductFieldSpanRecord.PRICE.fieldEndPosition()))
                         product.setPrice(Integer.parseInt(fieldData));
                 }
             }

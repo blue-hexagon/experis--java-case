@@ -30,17 +30,17 @@ public class UserSessionList implements IReadable {
             while (csvScanner.hasNextLine()) {
                 UserSession userSession = new UserSession();
                 String[] csvFieldArray = csvScanner.nextLine().split("[,]");
-                for (int iterValue = UserSessionFieldSpanRecord.RANGE.fieldStartPosition(); iterValue <= UserSessionFieldSpanRecord.RANGE.fieldEndPosition(); iterValue++) {
-                    String fieldData = csvFieldArray[iterValue].strip();
+                for (int fieldPosition = UserSessionFieldSpanRecord.RANGE.fieldStartPosition(); fieldPosition <= UserSessionFieldSpanRecord.RANGE.fieldEndPosition(); fieldPosition++) {
+                    String fieldData = csvFieldArray[fieldPosition].strip();
                     if (fieldData.length() > 0) {
-                        if (MathUtils.isBetween(iterValue, UserSessionFieldSpanRecord.USER_ID.fieldStartPosition(), UserSessionFieldSpanRecord.USER_ID.fieldEndPosition())) {
+                        if (MathUtils.isBetween(fieldPosition, UserSessionFieldSpanRecord.USER_ID.fieldStartPosition(), UserSessionFieldSpanRecord.USER_ID.fieldEndPosition())) {
                             userSession.setUser(
                                     UserList.getUserList().stream()
                                             .filter(user -> Integer.parseInt(fieldData) == (user.getId()))
                                             .findAny()
                                             .orElse(null)
                             );
-                        } else if (MathUtils.isBetween(iterValue, UserSessionFieldSpanRecord.PRODUCT_ID.fieldStartPosition(), UserSessionFieldSpanRecord.PRODUCT_ID.fieldEndPosition())) {
+                        } else if (MathUtils.isBetween(fieldPosition, UserSessionFieldSpanRecord.PRODUCT_ID.fieldStartPosition(), UserSessionFieldSpanRecord.PRODUCT_ID.fieldEndPosition())) {
                             userSession.setProduct(
                                     ProductList.getProductList().stream()
                                             .filter(product -> Integer.parseInt(fieldData) == (product.getId()))

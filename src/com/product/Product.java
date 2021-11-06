@@ -1,13 +1,7 @@
 package com.product;
 
-import com.AlreadyInitializedException;
-import com.IReadable;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Product {
     private int id;

@@ -26,25 +26,25 @@ public class UserList implements IReadable {
         while (csvScanner.hasNextLine()) {
             User user = new User();
             String[] csvFieldArray = csvScanner.nextLine().split("[,]");
-            for (int iterValue = UserFieldSpanRecord.RANGE.fieldStartPosition(); iterValue <= UserFieldSpanRecord.RANGE.fieldEndPosition(); iterValue++) {
-                String fieldData = csvFieldArray[iterValue].strip();
+            for (int fieldPosition = UserFieldSpanRecord.RANGE.fieldStartPosition(); fieldPosition <= UserFieldSpanRecord.RANGE.fieldEndPosition(); fieldPosition++) {
+                String fieldData = csvFieldArray[fieldPosition].strip();
                 if (fieldData.length() > 0) {
-                    if (MathUtils.isBetween(iterValue, UserFieldSpanRecord.ID.fieldStartPosition(), UserFieldSpanRecord.ID.fieldEndPosition()))
+                    if (MathUtils.isBetween(fieldPosition, UserFieldSpanRecord.ID.fieldStartPosition(), UserFieldSpanRecord.ID.fieldEndPosition()))
                         user.setId(Integer.parseInt(fieldData));
-                    else if (MathUtils.isBetween(iterValue, UserFieldSpanRecord.NAME.fieldStartPosition(), UserFieldSpanRecord.NAME.fieldEndPosition()))
+                    else if (MathUtils.isBetween(fieldPosition, UserFieldSpanRecord.NAME.fieldStartPosition(), UserFieldSpanRecord.NAME.fieldEndPosition()))
                         user.setName(fieldData);
-                    else if (MathUtils.isBetween(iterValue, UserFieldSpanRecord.VIEWED.fieldStartPosition(), UserFieldSpanRecord.VIEWED.fieldEndPosition())) {
+                    else if (MathUtils.isBetween(fieldPosition, UserFieldSpanRecord.VIEWED.fieldStartPosition(), UserFieldSpanRecord.VIEWED.fieldEndPosition())) {
                         for (String field : fieldData.split("[;]")) {
                             user.getViewedProducts().add(ProductList.getProductList().get(Integer.parseInt(field) - 1));
                         }
-                    } else if (MathUtils.isBetween(iterValue, UserFieldSpanRecord.PURCHASED.fieldStartPosition(), UserFieldSpanRecord.PURCHASED.fieldEndPosition())) {
+                    } else if (MathUtils.isBetween(fieldPosition, UserFieldSpanRecord.PURCHASED.fieldStartPosition(), UserFieldSpanRecord.PURCHASED.fieldEndPosition())) {
                         for (String field : fieldData.split("[;]")) {
                             user.getPurchasedProducts().add(ProductList.getProductList().get(Integer.parseInt(field) - 1));
                         }
                     }
                 }
-                userList.add(user);
             }
+            userList.add(user);
         }
         csvScanner.close();
 
