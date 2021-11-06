@@ -1,25 +1,29 @@
 package com.session;
 
-import java.text.MessageFormat;
-
 import com.product.Product;
 import com.user.User;
+
+import java.text.MessageFormat;
 
 public class UserSession {
     private User user;
     private Product product;
+
+    public UserSession() {
+
+    }
+
     public User getUser() {
         return user;
     }
-    @Override
-    public String toString() {
-        return MessageFormat.format("Session'{'userId={0}, productId={1}'}'", user, product);
-    }
-
-
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return MessageFormat.format("Session'{'userId={0}, productId={1}'}'", user, product);
     }
 
     public Product getProduct() {
@@ -30,8 +34,5 @@ public class UserSession {
         this.product = product;
     }
 
-    public UserSession() {
-
-    }
 
 }

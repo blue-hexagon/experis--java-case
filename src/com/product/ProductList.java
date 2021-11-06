@@ -1,13 +1,12 @@
 package com.product;
 
 import com.IReadable;
+import com.MathUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import com.MathUtils;
 
 public class ProductList implements IReadable {
     static final ArrayList<Product> productList = new ArrayList<>();

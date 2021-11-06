@@ -30,7 +30,7 @@ public class HotProductFinder {
     }
 
 
-    public static void GenerateHotProductsList(ArrayList<User> users) {
+    public static void generateHotProductsList(ArrayList<User> users) {
         for (User user : users) {
             for (Product product : user.getPurchasedProducts()) {
                 if (!moviesPurchasedMap.containsKey(product.getId())) {
