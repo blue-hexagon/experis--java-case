@@ -45,12 +45,15 @@ public class Main {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        HotProductFinder.generateHotProductsList(UserList.getList());
+        HotProductFinder.createMapOfMovieIdsAndHowManyTimesTheyHaveBeenBought(UserList.getList());
+
+        /* Makes a kV map where K is a movie category, and V is the list of associated movie ids. */
+        ProductSuggester.createMapOfCategoriesWithAssociatedMovieIds();
 
         System.out.println(HotProductFinder.getMostPurchasedMovies(PAGE_SIZE));
         System.out.println(HotProductFinder.getHighestRatedMovies(PAGE_SIZE));
         UserSessionList.getList().forEach(userSession -> {
-            ProductSuggester.getSuggestion(userSession, PAGE_SIZE);
+            ProductSuggester.getCategoryIntersectionFromViewedProductAndPurchasedProducts(userSession, PAGE_SIZE);
         });
     }
 

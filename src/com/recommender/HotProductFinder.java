@@ -7,7 +7,7 @@ import com.user.User;
 import java.util.*;
 
 public class HotProductFinder {
-    private static final Map<Integer, Integer> moviesPurchasedMap = new HashMap<Integer, Integer>();
+    private static final Map<Integer, Integer> movieIdsToPurchasesMapping = new HashMap<Integer, Integer>();
 
     /**
      * This class has the task of finding the most sold and/or highest rated products.
@@ -30,26 +30,26 @@ public class HotProductFinder {
     }
 
     public static List<Integer> getHighestRatedMovies(int pageSize) {
-        return highestRatedSort(moviesPurchasedMap).keySet().stream().limit(pageSize).toList();
+        return sortByRating(movieIdsToPurchasesMapping).keySet().stream().limit(pageSize).toList();
     }
 
     public static List<Integer> getMostPurchasedMovies(int pageSize) {
-        return mostPurchasedSort(moviesPurchasedMap).keySet().stream().limit(pageSize).toList();
+        return sortByNumberOfTotalPurchases(movieIdsToPurchasesMapping).keySet().stream().limit(pageSize).toList();
     }
 
-    public static void generateHotProductsList(ArrayList<User> users) {
+    public static void createMapOfMovieIdsAndHowManyTimesTheyHaveBeenBought(ArrayList<User> users) {
         for (User user : users) {
             for (Product product : user.getPurchasedProducts()) {
-                if (!moviesPurchasedMap.containsKey(product.getId())) {
-                    moviesPurchasedMap.put(product.getId(), 1);
+                if (!movieIdsToPurchasesMapping.containsKey(product.getId())) {
+                    movieIdsToPurchasesMapping.put(product.getId(), 1);
                 } else {
-                    moviesPurchasedMap.put(product.getId(), moviesPurchasedMap.get(product.getId()) + 1);
+                    movieIdsToPurchasesMapping.put(product.getId(), movieIdsToPurchasesMapping.get(product.getId()) + 1);
                 }
             }
         }
     }
 
-    public static <K, V extends Comparable<V>> Map<K, V> mostPurchasedSort(final Map<K, V> map) {
+    public static <K, V extends Comparable<V>> Map<K, V> sortByNumberOfTotalPurchases(final Map<K, V> map) {
         Comparator<K> mostPurchasedComparator = (k1, k2) -> {
             int comp = map.get(k1).compareTo(map.get(k2));
             if (comp == 0)
@@ -62,11 +62,11 @@ public class HotProductFinder {
         return sorted;
     }
 
-    public static <K, V> Map<K, V> highestRatedSort(final Map<K, V> map) {
+    public static <K, V> Map<K, V> sortByRating(final Map<K, V> map) {
         Comparator<K> highestRatingComparator = (k1, k2) -> {
             int comp = Float.compare(
-                    ProductList.getList().get((Integer) (k1) - 1).getRating(),
-                    ProductList.getList().get((Integer) (k2) - 1).getRating()
+                    ProductList.getList().get((Integer) k1 - 1).getRating(),
+                    ProductList.getList().get((Integer) k2 - 1).getRating()
             );
 //            System.out.println(
 //                    "k1(" + k1 + ") " + ProductList.getProductList().get((Integer) (k1) - 1).getRating() + ProductList.getProductList().get((Integer) (k1) - 1).getTitle() + "\n " +
