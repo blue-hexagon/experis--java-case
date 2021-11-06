@@ -1,7 +1,13 @@
 package com.product;
 
+import com.AlreadyInitializedException;
+import com.IReadable;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Product {
     private int id;
@@ -10,6 +16,7 @@ public class Product {
     private final ArrayList<String> categories;
     private float rating;
     private int price;
+
 
     public Product() {
         categories = new ArrayList<>();
@@ -63,4 +70,6 @@ public class Product {
     public void setPrice(int price) {
         this.price = price;
     }
+
+
 }
