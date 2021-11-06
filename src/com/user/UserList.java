@@ -13,7 +13,7 @@ public class UserList implements IReadable {
     static final ArrayList<User> userList = new ArrayList<>();
     static final File CSV_FILE_USERS = new File("src/com/data/Users.txt");
 
-    public static ArrayList<User> getUserList() {
+    public static ArrayList<User> getList() {
         return userList;
     }
 
@@ -35,11 +35,11 @@ public class UserList implements IReadable {
                         user.setName(fieldData);
                     else if (MathUtils.isBetween(fieldPosition, UserFieldSpanRecord.VIEWED.fieldStartPosition(), UserFieldSpanRecord.VIEWED.fieldEndPosition())) {
                         for (String field : fieldData.split("[;]")) {
-                            user.getViewedProducts().add(ProductList.getProductList().get(Integer.parseInt(field) - 1));
+                            user.getViewedProducts().add(ProductList.getList().get(Integer.parseInt(field) - 1));
                         }
                     } else if (MathUtils.isBetween(fieldPosition, UserFieldSpanRecord.PURCHASED.fieldStartPosition(), UserFieldSpanRecord.PURCHASED.fieldEndPosition())) {
                         for (String field : fieldData.split("[;]")) {
-                            user.getPurchasedProducts().add(ProductList.getProductList().get(Integer.parseInt(field) - 1));
+                            user.getPurchasedProducts().add(ProductList.getList().get(Integer.parseInt(field) - 1));
                         }
                     }
                 }

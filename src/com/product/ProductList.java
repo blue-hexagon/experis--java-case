@@ -12,8 +12,7 @@ public class ProductList implements IReadable {
     static final ArrayList<Product> productList = new ArrayList<>();
     static final File CSV_FILE_PRODUCTS = new File("src/com/data/Products.txt");
 
-
-    public static ArrayList<Product> getProductList() {
+    public static ArrayList<Product> getList() {
         return productList;
     }
 

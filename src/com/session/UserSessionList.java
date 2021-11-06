@@ -14,8 +14,7 @@ public class UserSessionList implements IReadable {
     static final ArrayList<UserSession> userSessionList = new ArrayList<>();
     static final File CSV_FILE_USER_SESSIONS = new File("src/com/data/CurrentUserSession.txt");
 
-
-    public static ArrayList<UserSession> getUserSessionList() {
+    public static ArrayList<UserSession> getList() {
         return userSessionList;
     }
 
@@ -34,14 +33,14 @@ public class UserSessionList implements IReadable {
                     if (fieldData.length() > 0) {
                         if (MathUtils.isBetween(fieldPosition, UserSessionFieldSpanRecord.USER_ID.fieldStartPosition(), UserSessionFieldSpanRecord.USER_ID.fieldEndPosition())) {
                             userSession.setUser(
-                                    UserList.getUserList().stream()
+                                    UserList.getList().stream()
                                             .filter(user -> Integer.parseInt(fieldData) == (user.getId()))
                                             .findAny()
                                             .orElse(null)
                             );
                         } else if (MathUtils.isBetween(fieldPosition, UserSessionFieldSpanRecord.PRODUCT_ID.fieldStartPosition(), UserSessionFieldSpanRecord.PRODUCT_ID.fieldEndPosition())) {
                             userSession.setProduct(
-                                    ProductList.getProductList().stream()
+                                    ProductList.getList().stream()
                                             .filter(product -> Integer.parseInt(fieldData) == (product.getId()))
                                             .findAny()
                                             .orElse(null)
