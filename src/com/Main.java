@@ -19,14 +19,15 @@ public class Main {
             for (IReadable readable : new IReadable[]{new ProductList(), new UserList(), new UserSessionList()}) {
                 readable.read();
             }
-            if (DEBUG)
-                DumpDataObjects();
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-//        System.out.println(ProductList.getProductList());
-        System.out.println(HotProductFinder.GenerateOftenBoughtProductsList(UserList.getUserList(), 3));
+        if (DEBUG)
+            DumpDataObjects();
+        HotProductFinder.GenerateHotProductsList(UserList.getUserList());
+        System.out.println(HotProductFinder.getMostPurchasedMovies(3));
+        System.out.println(HotProductFinder.getHighestRatedMovies(3));
     }
 
     private static void DumpDataObjects() {

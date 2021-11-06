@@ -7,30 +7,30 @@ import com.user.User;
 import java.util.*;
 
 public class HotProductFinder {
+    private static final Map<Integer, Integer> moviesPurchasedMap = new HashMap<Integer, Integer>();
+
+    /**
+     * This class has the task of finding the most sold and/or highest rated products.
+     * <p>
+     * Traverses each users purchases and generates a K,V pair of purchased movies: K = ProdutID, V = total number of purchases
+     * <p>
+     * Optionally it can also sort for the most purchased movies and do a union set of the the highest rated and most sold products.
+     *
+     * @return Map<K, V>
+     */
+
     public enum ComparatorValue {
         LOWER(-1),
         EQUAL(0),
         GREATER(1);
 
 
-        private final int value;
-
         ComparatorValue(int value) {
-            this.value = value;
         }
     }
 
 
-    /**
-     * This class has the task of finding the most sold products.
-     * <p>
-     * Traverses each users purchases and generates a K,V pair of purchased movies: K = ProdutID, V = total number of purchases
-     * <p>
-     *
-     * @return Map<K, V>
-     */
-    public static Map<Integer, Integer> GenerateOftenBoughtProductsList(ArrayList<User> users, int pageSize) {
-        Map<Integer, Integer> moviesPurchasedMap = new HashMap<Integer, Integer>();
+    public static void GenerateHotProductsList(ArrayList<User> users) {
         for (User user : users) {
             for (Product product : user.getPurchasedProducts()) {
                 if (!moviesPurchasedMap.containsKey(product.getId())) {
@@ -40,8 +40,15 @@ public class HotProductFinder {
                 }
             }
         }
-//        return highestRated(mostPurchasedSort(moviesPurchasedMap));
-        return highestRated(moviesPurchasedMap);
+    }
+
+
+    public static List<Integer> getHighestRatedMovies(int pageSize) {
+        return highestRatedSort(moviesPurchasedMap).keySet().stream().limit(pageSize).toList();
+    }
+
+    public static List<Integer> getMostPurchasedMovies(int pageSize) {
+        return mostPurchasedSort(moviesPurchasedMap).keySet().stream().limit(pageSize).toList();
     }
 
     public static <K, V extends Comparable<V>> Map<K, V> mostPurchasedSort(final Map<K, V> map) {
@@ -57,15 +64,15 @@ public class HotProductFinder {
         return sorted;
     }
 
-    public static <K extends Comparable<K>, V> Map<K, V> highestRated(final Map<K, V> map) {
+    public static <K, V> Map<K, V> highestRatedSort(final Map<K, V> map) {
         Comparator<K> highestRatingComparator = (k1, k2) -> {
             int comp = Float.compare(
                     ProductList.getProductList().get((Integer) (k1) - 1).getRating(),
                     ProductList.getProductList().get((Integer) (k2) - 1).getRating()
             );
 //            System.out.println(
-//                    "k1(" + k1 +") " +ProductList.getProductList().get((Integer) (k1)-1).getRating() + ProductList.getProductList().get((Integer) (k1)-1).getTitle() +"\n " +
-//                            "k2(" + k2 +") " + ProductList.getProductList().get((Integer) (k2)-1).getRating() + ProductList.getProductList().get((Integer) (k2)-1).getTitle() +"\n"
+//                    "k1(" + k1 + ") " + ProductList.getProductList().get((Integer) (k1) - 1).getRating() + ProductList.getProductList().get((Integer) (k1) - 1).getTitle() + "\n " +
+//                            "k2(" + k2 + ") " + ProductList.getProductList().get((Integer) (k2) - 1).getRating() + ProductList.getProductList().get((Integer) (k2) - 1).getTitle() + "\n"
 //            );
             if (comp == 0)
                 return 1;
