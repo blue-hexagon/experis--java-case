@@ -6,7 +6,7 @@ import com.user.User;
 
 import java.util.*;
 
-public class HotProductFinder {
+public class PopularProductFinder {
     private static final Map<Integer, Integer> movieIdsToPurchasesMapping = new HashMap<Integer, Integer>();
 
     /**
@@ -19,22 +19,22 @@ public class HotProductFinder {
      * @return Map<K, V>
      */
 
-    public enum ComparatorValue {
-        LOWER(-1),
-        EQUAL(0),
-        GREATER(1);
-
-
-        ComparatorValue(int value) {
+    public static Product[] getHighestRatedMovies(int pageSize) {
+        Product[] products = new Product[pageSize];
+        List<Integer> movieIds = sortByRating(movieIdsToPurchasesMapping).keySet().stream().limit(pageSize).toList();
+        for (int i = 0; i < pageSize; i++) {
+            products[i] = ProductList.getList().get(movieIds.get(i) - 1);
         }
+        return products;
     }
 
-    public static List<Integer> getHighestRatedMovies(int pageSize) {
-        return sortByRating(movieIdsToPurchasesMapping).keySet().stream().limit(pageSize).toList();
-    }
-
-    public static List<Integer> getMostPurchasedMovies(int pageSize) {
-        return sortByNumberOfTotalPurchases(movieIdsToPurchasesMapping).keySet().stream().limit(pageSize).toList();
+    public static Product[] getMostPurchasedMovies(int pageSize) {
+        Product[] products = new Product[pageSize];
+        List<Integer> movieIds = sortByNumberOfTotalPurchases(movieIdsToPurchasesMapping).keySet().stream().limit(pageSize).toList();
+        for (int i = 0; i < pageSize; i++) {
+            products[i] = ProductList.getList().get(movieIds.get(i) - 1);
+        }
+        return products;
     }
 
     public static void createMapOfMovieIdsAndHowManyTimesTheyHaveBeenBought(ArrayList<User> users) {
@@ -68,10 +68,6 @@ public class HotProductFinder {
                     ProductList.getList().get((Integer) k1 - 1).getRating(),
                     ProductList.getList().get((Integer) k2 - 1).getRating()
             );
-//            System.out.println(
-//                    "k1(" + k1 + ") " + ProductList.getProductList().get((Integer) (k1) - 1).getRating() + ProductList.getProductList().get((Integer) (k1) - 1).getTitle() + "\n " +
-//                            "k2(" + k2 + ") " + ProductList.getProductList().get((Integer) (k2) - 1).getRating() + ProductList.getProductList().get((Integer) (k2) - 1).getTitle() + "\n"
-//            );
             if (comp == 0)
                 return 1;
             else

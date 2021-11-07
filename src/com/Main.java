@@ -2,8 +2,8 @@ package com;
 
 import com.product.Product;
 import com.product.ProductList;
-import com.recommender.HotProductFinder;
-import com.recommender.ProductSuggester;
+import com.recommender.PopularProductFinder;
+import com.recommender.RelatedProductSuggester;
 import com.session.UserSession;
 import com.session.UserSessionList;
 import com.user.User;
@@ -29,7 +29,6 @@ import java.io.FileNotFoundException;
  */
 
 public class Main {
-    private static final boolean DEBUG = false;
     private static final int PAGE_SIZE = 3;
     private static final IReadable[] readables = new IReadable[]{new ProductList(), new UserList(), new UserSessionList()};
 
@@ -37,7 +36,7 @@ public class Main {
         try {
             for (IReadable readable : readables) {
                 readable.read();
-                if (DEBUG) {
+                if (false) {
                     dumpParsedCSV();
                     System.exit(0);
                 }
@@ -45,15 +44,22 @@ public class Main {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        HotProductFinder.createMapOfMovieIdsAndHowManyTimesTheyHaveBeenBought(UserList.getList());
+        PopularProductFinder.createMapOfMovieIdsAndHowManyTimesTheyHaveBeenBought(UserList.getList());
 
-        /* Makes a kV map where K is a movie category, and V is the list of associated movie ids. */
-        ProductSuggester.createMapOfCategoriesWithAssociatedMovieIds();
+        RelatedProductSuggester.createMapOfCategoriesWithAssociatedMovieIds();
 
-        System.out.println(HotProductFinder.getMostPurchasedMovies(PAGE_SIZE));
-        System.out.println(HotProductFinder.getHighestRatedMovies(PAGE_SIZE));
+        System.out.println("High purchase number products: ");
+        for (Product oftenBoughtProduct : PopularProductFinder.getMostPurchasedMovies(PAGE_SIZE)) {
+            System.out.println(oftenBoughtProduct);
+        }
+
+        System.out.println("\nHigh rated products: ");
+        for (Product highRatedProduct : PopularProductFinder.getHighestRatedMovies(PAGE_SIZE)) {
+            System.out.println(highRatedProduct);
+        }
+        System.out.println();
         UserSessionList.getList().forEach(userSession -> {
-            ProductSuggester.getCategoryIntersectionFromViewedProductAndPurchasedProducts(userSession, PAGE_SIZE);
+            RelatedProductSuggester.getMovieSuggestion(userSession, PAGE_SIZE);
         });
     }
 
