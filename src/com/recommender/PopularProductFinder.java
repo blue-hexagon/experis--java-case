@@ -12,11 +12,8 @@ public class PopularProductFinder {
     /**
      * This class has the task of finding the most sold and/or highest rated products.
      * <p>
-     * Traverses each users purchases and generates a K,V pair of purchased movies: K = ProdutID, V = total number of purchases
-     * <p>
-     * Optionally it can also sort for the most purchased movies and do a union set of the the highest rated and most sold products.
-     *
-     * @return Map<K, V>
+     * Traverses all users purchases and generates a K,V pair of purchased movies and the number of times they have been bought in total
+     * E.g: K = ProdutID, V = total number of purchases
      */
 
     public static Product[] getHighestRatedMovies(int pageSize) {
@@ -37,7 +34,7 @@ public class PopularProductFinder {
         return products;
     }
 
-    public static void createMapOfMovieIdsAndHowManyTimesTheyHaveBeenBought(ArrayList<User> users) {
+    public static void createMapOfMovieIdsToNumberOfPurchases(ArrayList<User> users) {
         for (User user : users) {
             for (Product product : user.getPurchasedProducts()) {
                 if (!movieIdsToPurchasesMapping.containsKey(product.getId())) {

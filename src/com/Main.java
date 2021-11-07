@@ -44,22 +44,24 @@ public class Main {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        PopularProductFinder.createMapOfMovieIdsAndHowManyTimesTheyHaveBeenBought(UserList.getList());
-
+        PopularProductFinder.createMapOfMovieIdsToNumberOfPurchases(UserList.getList());
         RelatedProductSuggester.createMapOfCategoriesWithAssociatedMovieIds();
 
-        System.out.println("High purchase number products: ");
+        System.out.println("Most sold products: ");
         for (Product oftenBoughtProduct : PopularProductFinder.getMostPurchasedMovies(PAGE_SIZE)) {
             System.out.println(oftenBoughtProduct);
         }
 
-        System.out.println("\nHigh rated products: ");
+        System.out.println("\nHighest rated products: ");
         for (Product highRatedProduct : PopularProductFinder.getHighestRatedMovies(PAGE_SIZE)) {
             System.out.println(highRatedProduct);
         }
         System.out.println();
         UserSessionList.getList().forEach(userSession -> {
-            RelatedProductSuggester.getMovieSuggestion(userSession, PAGE_SIZE);
+            for (Product product : RelatedProductSuggester.getMovieSuggestion(userSession, PAGE_SIZE)) {
+                System.out.println(product);
+            }
+            System.out.println();
         });
     }
 
